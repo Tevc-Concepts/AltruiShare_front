@@ -38,6 +38,15 @@ const withPWA = nextPwa({
       }
     },
     {
+      urlPattern: /\/api\/method\/altruishare.*list_notifications.*/,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'notifications-cache',
+        expiration: { maxEntries: 100, maxAgeSeconds: 60 * 2 },
+        cacheableResponse: { statuses: [0, 200] }
+      }
+    },
+    {
       urlPattern: ({ request }: { request: Request }) => request.destination === 'style' || request.destination === 'script' || request.destination === 'image',
       handler: 'CacheFirst',
       options: {
