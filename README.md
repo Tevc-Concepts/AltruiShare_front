@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">AltruiShare Frontend</h1>
 
-## Getting Started
+Production-ready Next.js (App Router + TypeScript) frontend for the AltruiShare platform.
 
-First, run the development server:
+## Quick Start
 
+Create a local env file:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.local.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Install deps & run dev server:
+```bash
+npm install
+npm run dev
+```
+App runs at http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
+```bash
+npm run dev       # Start development (Next.js)
+npm run build     # Production build
+npm start         # Run built app
+npm run lint      # Lint
+npm test          # (Will run Jest tests once added)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
+See `.env.local.example` for required vars.
 
-## Learn More
+## Stack
+- Next.js (App Router, SSR/SSG)
+- TypeScript
+- TailwindCSS & shadcn/ui (UI primitives)
+- framer-motion (animations)
+- next-pwa (offline-first PWA)
+- Axios (API client) with Frappe backend (`status/message/data` contract)
 
-To learn more about Next.js, take a look at the following resources:
+## Project Goals
+Build a PWA-ready, accessible, domain-driven frontend integrating with Frappe BaaS endpoints for auth, needs, donations, payments, impact analytics, volunteers, notifications & files.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Domain Structure (planned)
+```
+src/
+	app/
+	features/
+	entities/
+	shared/
+	styles/
+	config/
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Development Roadmap (high-level)
+1. Core scaffold & env
+2. Tailwind + base UI
+3. PWA config
+4. Typed API layer
+5. Auth flows
+6. Needs discovery
+7. Donation flow
+8. File uploads
+9. Impact dashboard
+10. Notifications & offline queue
+11. Tests & CI
+12. Docs & release
 
-## Deploy on Vercel
+## License
+MIT (TBD)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Further documentation will be added as features land.
