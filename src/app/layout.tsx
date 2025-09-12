@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "../shared/context/AuthProvider";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +26,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gradient-to-br from-brand-indigo/10 via-brand-purple/10 to-brand-pink/10`}>
+        <AuthProvider>
+          <nav className="w-full border-b border-white/20 dark:border-neutral-800 backdrop-blur bg-white/50 dark:bg-neutral-900/50 sticky top-0 z-20">
+            <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+              <Link href="/" className="font-semibold text-brand-indigo">AltruiShare</Link>
+              <div className="flex items-center gap-4 text-sm">
+                <Link href="/needs">Needs</Link>
+                <Link href="/donate">Donate</Link>
+                <Link href="/login" className="hover:underline">Login</Link>
+              </div>
+            </div>
+          </nav>
+          <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

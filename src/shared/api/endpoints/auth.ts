@@ -15,10 +15,10 @@ export interface AuthResponse {
 }
 
 export const authApi = {
-    login: (data: { email: string; password: string }) =>
-        api.post<AuthResponse>(`${prefix}login`, data),
-    register: (data: { email: string; password: string; full_name?: string }) =>
-        api.post<AuthResponse>(`${prefix}register`, data),
-    logout: () => api.post(`${prefix}logout`, {}),
-    getLoggedUser: () => api.get<User>(`${prefix}get_logged_user`)
+    login: async (data: { email: string; password: string }): Promise<AuthResponse> =>
+        (await api.post(`${prefix}login`, data)) as unknown as AuthResponse,
+    register: async (data: { email: string; password: string; full_name?: string }): Promise<AuthResponse> =>
+        (await api.post(`${prefix}register`, data)) as unknown as AuthResponse,
+    logout: async (): Promise<void> => { await api.post(`${prefix}logout`, {}) },
+    getLoggedUser: async (): Promise<User> => (await api.get(`${prefix}get_logged_user`)) as unknown as User
 }
