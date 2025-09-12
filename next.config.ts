@@ -29,6 +29,15 @@ const withPWA = nextPwa({
       }
     },
     {
+      urlPattern: /\/api\/method\/altruishare.*get_impact_analytics.*/,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'impact-analytics',
+        expiration: { maxEntries: 30, maxAgeSeconds: 60 * 5 },
+        cacheableResponse: { statuses: [0, 200] }
+      }
+    },
+    {
       urlPattern: ({ request }: { request: Request }) => request.destination === 'style' || request.destination === 'script' || request.destination === 'image',
       handler: 'CacheFirst',
       options: {
