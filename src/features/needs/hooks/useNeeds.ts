@@ -15,7 +15,7 @@ export function useNeeds(initial: UseNeedsFilters = {}) {
         setLoading(true)
         setError(null)
         try {
-            const payload = await needApi.listByFilters(activeFilters as Record<string, unknown>) as unknown as Need[]
+            const payload = await needApi.listByFilters(activeFilters as Record<string, unknown>)
             setData(payload || [])
         } catch (e: unknown) {
             setError(e instanceof Error ? e.message : 'Failed to load needs')
