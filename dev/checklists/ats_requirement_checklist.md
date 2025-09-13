@@ -3,12 +3,12 @@
 Status legend: [ ] not started · [~] in progress · [x] done · [>] deferred/later
 
 ## 1. Architecture & Foundation
-- [ ] DDA folder structure validated (/app /features /entities /shared /config)
-- [ ] Absolute imports & path aliases configured
-- [ ] Tailwind theme tokens (gradients, shadows, semantic colors)
-- [ ] shadcn/ui integrated & documented
-- [ ] PWA config (next-pwa) & service worker strategy review
-- [ ] API client with envelope normalization + error handling
+- [x] DDA folder structure validated (/app /features /entities /shared /config)
+- [~] Absolute imports & path aliases configured (base TS paths; verify remaining refs)
+- [x] Tailwind theme tokens (gradients, shadows, semantic colors)
+- [~] shadcn/ui integrated & documented (primitives started)
+- [~] PWA config (next-pwa) & service worker strategy review (offline route + sw present)
+- [x] API client with envelope normalization + error handling
 - [ ] Global error boundary & loading states
 
 ## 2. Authentication & User Management
@@ -20,9 +20,9 @@ Status legend: [ ] not started · [~] in progress · [x] done · [>] deferred/la
 - [ ] Privacy & notification settings page
 
 ## 3. Roles & Capabilities
-- [ ] Role enum + capability enum definitions
-- [ ] Role→capability matrix mapping file
-- [ ] Utility to check capability (hasCapability)
+- [x] Role enum + capability enum definitions
+- [x] Role→capability matrix mapping file
+- [x] Utility to check capability (hasCapability)
 - [ ] Dynamic capability-driven UI gating
 - [ ] Documentation for roles & capabilities
 
@@ -120,10 +120,10 @@ Status legend: [ ] not started · [~] in progress · [x] done · [>] deferred/la
 - [ ] Volunteer time-off management UI placeholder
 
 ## 18. Global UI / Navigation
-- [ ] Collapsible side navigation (role-aware)
-- [ ] Menu config file (role→sections→items)
-- [ ] Active route highlighting & keyboard nav
-- [ ] Persisted collapse state
+- [x] Collapsible side navigation (role-aware)
+- [x] Menu config file (role→sections→items)
+- [x] Active route highlighting & keyboard nav (highlighting implemented; advanced keyboard focus mgmt TBD)
+- [x] Persisted collapse state
 - [ ] Mobile slide-over variant
 - [ ] Top bar (search, notifications icon, user menu)
 
@@ -131,7 +131,7 @@ Status legend: [ ] not started · [~] in progress · [x] done · [>] deferred/la
 - [x] Offline fallback route (/offline)
 - [x] Online status hook + banner
 - [ ] Offline navigation guard (auto redirect + restore)
-- [ ] Generalized action queue (beyond notifications)
+- [ ] Generalized action queue (beyond notifications) (notifications queue exists)
 - [ ] Cache strategy documentation
 
 ## 20. Performance & Scalability
@@ -162,6 +162,7 @@ Status legend: [ ] not started · [~] in progress · [x] done · [>] deferred/la
 
 ## 24. Testing Strategy
 - [x] Unit tests foundation
+- [x] Navigation & layout tests (SideNav role filtering, collapse, DashboardLayout integration, smoke pages updated)
 - [ ] Integration tests for onboarding wizard
 - [ ] Menu accessibility tests (keyboard, roles)
 - [ ] Donation flow tests
