@@ -1,0 +1,45 @@
+--- BUILD START ---
+
+> altruishare-frontend@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.3
+
+   Creating an optimized production build ...
+> [PWA] Compile server
+> [PWA] Compile server
+> [PWA] Compile client (static)
+> [PWA] Auto register service worker with: /home/tevcworld/pj/ats_frontend/altruishare-frontend/node_modules/next-pwa/register.js
+> [PWA] Service worker: /home/tevcworld/pj/ats_frontend/altruishare-frontend/public/sw.js
+> [PWA]   url: /sw.js
+> [PWA]   scope: /
+ ✓ Compiled successfully in 2.8s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    5.43 kB         107 kB
+├ ○ /_not-found                            992 B         103 kB
+├ ○ /donate                              5.09 kB         172 kB
+├ ƒ /impact                              97.9 kB         228 kB
+├ ○ /login                               3.05 kB         134 kB
+├ ○ /needs                               2.68 kB         170 kB
+├ ƒ /notifications                       2.96 kB         133 kB
+├ ○ /register                             3.1 kB         134 kB
+└ ○ /upload-demo                          2.9 kB         133 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-84bf4b4175aa60f8.js       45.7 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.93 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

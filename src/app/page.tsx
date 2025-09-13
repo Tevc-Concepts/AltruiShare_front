@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import Hero from '../shared/ui/Hero';
+import GuestNeedsPreview from '../shared/ui/GuestNeedsPreview';
 import { FeatureGrid, RoleMatrix } from '../shared/ui/FeatureGrid';
 import RoleCard, { RoleCapability } from '../shared/ui/RoleCard';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -92,9 +93,12 @@ export default function HomePage() {
       </AnimatePresence>
 
       {guestMode && (
-        <div className="rounded-2xl border border-brand-indigo/30 bg-white/70 dark:bg-neutral-900/70 backdrop-blur p-6 shadow-soft">
-          <h3 className="font-semibold text-brand-indigo mb-2">Guest preview mode</h3>
-          <p className="text-sm text-neutral-700 dark:text-neutral-300">You are exploring a limited preview. Sign up to personalize your dashboard and access advanced capabilities.</p>
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-brand-indigo/30 bg-white/70 dark:bg-neutral-900/70 backdrop-blur p-6 shadow-soft">
+            <h3 className="font-semibold text-brand-indigo mb-2">Guest preview mode</h3>
+            <p className="text-sm text-neutral-700 dark:text-neutral-300">You are exploring a limited preview. Sign up to personalize your dashboard and access advanced capabilities.</p>
+          </div>
+          <GuestNeedsPreview />
         </div>
       )}
     </div>

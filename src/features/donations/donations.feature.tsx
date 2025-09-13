@@ -62,10 +62,14 @@ export const DonationsFeature = () => {
                     const statusRes = await paymentApi.getStatus(paymentRef)
                     if (statusRes.payment_status) {
                         setPaymentStatus(statusRes.payment_status)
-                        if (['completed', 'failed', 'success'].includes(statusRes.payment_status.toLowerCase())) {
+                        const lowered = statusRes.payment_status.toLowerCase()
+                        if (['completed', 'success', 'failed'].includes(lowered)) {
                             clearInterval(interval)
                             setPoller(null)
-                            try { await paymentApi.verify(paymentRef) } catch { }
+                            // Only verify on successful completion states
+                            if (['completed', 'success'].includes(lowered)) {
+                                try { await paymentApi.verify(paymentRef) } catch { }
+                            }
                         }
                     }
                 } catch { }

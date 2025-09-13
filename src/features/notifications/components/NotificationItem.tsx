@@ -6,6 +6,9 @@ export function NotificationItem({ n, onClick }: { n: Notification; onClick?: ()
     return (
         <button
             onClick={onClick}
+            role="listitem"
+            aria-label={`${n.title}${n.read ? '' : ' (unread)'}`}
+            data-unread={!n.read || undefined}
             className={cn(
                 'w-full text-left p-3 rounded-xl2 border flex flex-col gap-1 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-indigo/40',
                 n.read ? 'bg-white/60 dark:bg-neutral-800/40 border-neutral-200/60 dark:border-neutral-700' : 'bg-gradient-to-r from-brand-indigo/10 to-brand-purple/10 border-brand-indigo/30'

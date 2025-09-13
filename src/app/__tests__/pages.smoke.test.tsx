@@ -19,7 +19,8 @@ describe('Next.js pages smoke render', () => {
     })
     it('renders Donate page', () => {
         render(<DonatePage />)
-        expect(screen.getByText(/Make a Donation/i)).toBeInTheDocument()
+        // Updated heading text after gating refactor
+        expect(screen.getByText(/Donate/i)).toBeInTheDocument()
     })
     it('renders Impact page', () => {
         render(<ImpactPage />)

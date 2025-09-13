@@ -38,12 +38,12 @@ export default function LoginPage() {
                 <CardContent>
                     <form onSubmit={onSubmit} className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium mb-1">Email</label>
-                            <Input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+                            <label htmlFor="login-email" className="block text-sm font-medium mb-1">Email</label>
+                            <Input id="login-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Password</label>
-                            <Input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
+                            <label htmlFor="login-password" className="block text-sm font-medium mb-1">Password</label>
+                            <Input id="login-password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
                         </div>
                         {error && <p className="text-sm text-red-600" role="alert">{error}</p>}
                         <Button type="submit" loading={loading} className="w-full">Login</Button>

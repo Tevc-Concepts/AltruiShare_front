@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// Temporarily disable external Google font fetch (was causing ETIMEDOUT in CI build)
+// import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "../shared/context/AuthProvider";
 import Link from "next/link";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gradient-to-br from-brand-indigo/10 via-brand-purple/10 to-brand-pink/10`}>
+      <body className={`antialiased min-h-screen flex flex-col bg-gradient-to-br from-brand-indigo/10 via-brand-purple/10 to-brand-pink/10`}>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-brand-indigo text-white px-3 py-2 rounded-md text-sm z-50">Skip to content</a>
         <AuthProvider>
           <nav className="w-full border-b border-white/20 dark:border-neutral-800 backdrop-blur bg-white/50 dark:bg-neutral-900/50 sticky top-0 z-20">
             <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
@@ -38,7 +40,8 @@ export default function RootLayout({
               </div>
             </div>
           </nav>
-          <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
+          <div aria-live="polite" aria-atomic="true" className="sr-only" id="global-status-region" />
+          <main id="main-content" tabIndex={-1} className="flex-1 max-w-6xl w-full mx-auto px-4 py-8 focus:outline-none">
             {children}
           </main>
         </AuthProvider>

@@ -1,6 +1,7 @@
 "use client"
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { authApi, type User } from '../api/endpoints'
+import { apiRequest } from '../api/client'
 
 interface AuthContextValue {
     user: User | null
@@ -9,6 +10,9 @@ interface AuthContextValue {
     register: (email: string, password: string, fullName?: string) => Promise<void>
     logout: () => Promise<void>
     refresh: () => Promise<void>
+    roles: string[]
+    guest: boolean
+    setGuest: (g: boolean) => void
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
@@ -16,6 +20,17 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
+    const [roles, setRoles] = useState<string[]>([])
+    const [guest, setGuest] = useState(false)
+
+    const fetchRoles = useCallback(async () => {
+        try {
+            const data = await apiRequest<{ roles?: string[] }>({ method: 'GET', url: '.as_api.pwa_api.get_user_roles' })
+            if (Array.isArray(data?.roles)) setRoles(data.roles)
+        } catch {
+            setRoles([])
+        }
+    }, [])
 
     const refresh = useCallback(async () => {
         try {
@@ -26,11 +41,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } finally {
             setLoading(false)
         }
-    }, [])
+        fetchRoles()
+    }, [fetchRoles])
 
     useEffect(() => {
         refresh()
     }, [refresh])
+
+    // Auto logout on 401 events
+    useEffect(() => {
+        const handler = () => {
+            setUser(null)
+        }
+        if (typeof window !== 'undefined') {
+            window.addEventListener('auth:unauthorized', handler)
+        }
+        return () => {
+            if (typeof window !== 'undefined') window.removeEventListener('auth:unauthorized', handler)
+        }
+    }, [])
 
     const login = useCallback(async (email: string, password: string) => {
         setLoading(true)
@@ -62,7 +91,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }, [])
 
-    const value: AuthContextValue = { user, loading, login, logout, register, refresh }
+    const value: AuthContextValue = { user, loading, login, logout, register, refresh, roles, guest, setGuest }
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 

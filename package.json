@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "build": "next build",
     "type-check": "tsc --noEmit",
     "test": "jest --watchAll=false --passWithNoTests",
+    "test:coverage": "jest --coverage --watchAll=false --passWithNoTests",
+    "ci": "npm run lint . && npm run type-check && npm run test:coverage && npm run build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -24,7 +26,6 @@
     "tailwind-merge": "^3.3.1"
   },
   "jest": {
-    "preset": "ts-jest",
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.ts"
@@ -34,23 +35,40 @@
       "tsx",
       "js"
     ],
-    "testMatch": [
-      "**/src/**/*.test.[tj]sx?"
-    ],
+    "testRegex": "src/.*\\.test\\.[tj]sx?$",
     "transform": {
       "^.+\\.(t|j)sx?$": [
-        "ts-jest",
+        "@swc/jest",
         {
-          "tsconfig": "tsconfig.json"
+          "jsc": {
+            "target": "es2022",
+            "transform": {
+              "react": {
+                "runtime": "automatic"
+              }
+            }
+          }
         }
       ]
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/index.ts",
+      "!src/**/**.types.ts"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "<rootDir>/jest.style.mock.js"
     }
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@swc/core": "^1.13.5",
+    "@swc/jest": "^0.2.39",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -58,12 +76,25 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "jest": "^30.1.3",
     "jest-environment-jsdom": "^30.1.2",
     "prettier": "^3.6.2",
     "shadcn-ui": "^0.9.5",
     "tailwindcss": "^4",
-    "ts-jest": "^29.4.1",
     "typescript": "^5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "next",
+      "plugin:jsx-a11y/recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "jsx-a11y"
+    ],
+    "rules": {
+      "jsx-a11y/anchor-is-valid": "warn"
+    }
   }
 }

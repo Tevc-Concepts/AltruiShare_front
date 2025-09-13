@@ -13,6 +13,10 @@ jest.spyOn(impactMod.impactApi, 'getAnalytics').mockResolvedValue(Promise.resolv
 describe('ImpactDashboard', () => {
     it('renders KPIs after load', async () => {
         render(<ImpactDashboard />)
-        expect(await screen.findByText(/Donations/i)).toBeInTheDocument()
+        const donationKpiHeadings = await screen.findAllByRole('heading', { name: 'Donations' })
+        expect(donationKpiHeadings.length).toBeGreaterThan(0)
+        // KPI value
+        expect(await screen.findByText('10')).toBeInTheDocument()
+        expect(await screen.findByText(/Impact Analytics/i)).toBeInTheDocument()
     })
 })

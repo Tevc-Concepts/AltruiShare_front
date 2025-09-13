@@ -1,6 +1,7 @@
 "use client"
 import { useCallback, useEffect, useState } from 'react'
 import { notificationApi, Notification } from '../../../shared/api/endpoints/notification'
+import { announceStatus } from '../../../shared/a11y/announce'
 import { enqueue, setupAutoFlush } from '../../../shared/offline/notificationQueue'
 
 interface UseNotificationsOptions { pollMs?: number }
@@ -40,6 +41,7 @@ export function useNotifications(options?: UseNotificationsOptions) {
         try {
             if (navigator.onLine) await notificationApi.markRead(id)
             else enqueue({ type: 'markRead', id })
+            announceStatus('Notification marked as read')
         } catch {
             // revert on failure
             load()
@@ -52,6 +54,7 @@ export function useNotifications(options?: UseNotificationsOptions) {
         try {
             if (navigator.onLine) await notificationApi.markAllRead()
             else enqueue({ type: 'markAll' })
+            announceStatus('All notifications marked as read')
         } catch { load() }
     }, [load])
 
