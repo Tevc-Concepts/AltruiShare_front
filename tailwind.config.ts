@@ -8,13 +8,22 @@ const config: Config = {
         extend: {
             colors: {
                 brand: {
-                    indigo: '#6366f1',
-                    indigoDark: '#4f46e5',
-                    purple: '#8b5cf6',
-                    purpleDark: '#7e22ce',
-                    pink: '#ec4899',
-                    pinkDark: '#db2777'
+                    navy: '#0C2340',
+                    green: '#003C2D',
+                    emerald: '#3AD29F',
+                    teal: '#12B5B1',
+                    cobalt: '#2774FF',
+                    amber: '#FFB547',
+                    coral: '#FF6F59',
+                    violet: '#8D4DFF',
+                    indigo: '#0C2340', // alias deep navy for utility naming
+                    purple: '#8D4DFF', // alias violet
+                    pink: '#FF6F59',   // alias coral for gradient continuity
                 },
+                neutral: {
+                    light: '#F5F8F6',
+                    medium: '#E8ECEB',
+                    },
                 status: {
                     success: '#10b981',
                     warning: '#f59e0b',
@@ -26,18 +35,27 @@ const config: Config = {
                 }
             },
             backgroundImage: {
+                // General utilities
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                 'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-                'brand-hero': 'linear-gradient(to right, #6366f1, #8b5cf6, #ec4899)',
-                'brand-hero-diag': 'linear-gradient(120deg, #6366f1, #8b5cf6 40%, #ec4899)',
-                'brand-soft': 'linear-gradient(135deg, rgba(99,102,241,0.15), rgba(236,72,153,0.15))'
+
+                // Branded gradients
+                'brand-hero': 'linear-gradient(to right, #0C2340, #003C2D, #2774FF)',
+                'brand-hero-diag': 'linear-gradient(120deg, #0C2340, #003C2D 40%, #2774FF)',
+                'brand-soft': 'linear-gradient(135deg, rgba(12,35,64,0.12), rgba(0,60,45,0.12))',
+
+                // Section-specific
+                'gradient-donation': 'linear-gradient(to right, #FFB547, #FF6F59)',
+                'gradient-volunteer': 'linear-gradient(to right, #3AD29F, #12B5B1)',
+                'gradient-logistics': 'linear-gradient(to right, #2774FF, #8D4DFF)',
             },
             boxShadow: {
-                'soft': '0 4px 24px -2px rgba(99,102,241,0.15)',
-                'soft-lg': '0 8px 32px -4px rgba(139,92,246,0.25)',
-                'elevated': '0 8px 28px -6px rgba(99,102,241,0.25), 0 2px 8px -1px rgba(0,0,0,0.05)',
-                'glow-indigo': '0 0 0 1px rgba(99,102,241,0.4), 0 4px 18px -2px rgba(99,102,241,0.55)',
-                'glow-pink': '0 0 0 1px rgba(236,72,153,0.4), 0 4px 18px -2px rgba(236,72,153,0.55)'
+                soft: '0 4px 12px rgba(12,35,64,0.1)',
+                'soft-lg': '0 8px 20px rgba(12,35,64,0.15)',
+                elevated: '0 8px 28px -6px rgba(12,35,64,0.25), 0 2px 8px -1px rgba(0,0,0,0.05)',
+                'glow-cobalt': '0 0 0 1px rgba(39,116,255,0.4), 0 4px 18px -2px rgba(39,116,255,0.55)',
+                'glow-amber': '0 0 0 1px rgba(255,181,71,0.4), 0 4px 18px -2px rgba(255,181,71,0.55)',
+                'glow-emerald': '0 0 0 1px rgba(58,210,159,0.4), 0 4px 18px -2px rgba(58,210,159,0.55)',
             },
             borderRadius: {
                 'xl2': '1.25rem',
