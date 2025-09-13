@@ -15,6 +15,11 @@ const config: Config = {
                     pink: '#ec4899',
                     pinkDark: '#db2777'
                 },
+                status: {
+                    success: '#10b981',
+                    warning: '#f59e0b',
+                    danger: '#ef4444'
+                },
                 surface: {
                     base: 'rgba(255,255,255,0.65)',
                     dark: 'rgba(24,24,27,0.65)'

@@ -27,3 +27,12 @@ Base URL Env: `NEXT_PUBLIC_API_BASE` -> http://localhost:8000/api/method/altruis
 Legend: `{base}` = http://localhost:8000/api/method/altruishare
 
 Pending confirmation endpoints (volunteer, some notification specifics) will be validated when backend provides swagger or docs.
+
+## Notes
+
+- Response envelope normalized in axios interceptor; errors bubble naturally.
+- Role-based gating via `Protected` component and guest preview mode on landing.
+- UI primitives added: Button, Card (with subcomponents), Input, Badge (status & variant support).
+- Tailwind tokens extended (brand gradients, soft shadows, semantic status colors success/warning/danger).
+- Offline utilities: notification action queue + new offline fallback route `/offline` (edge runtime) with retry & back actions.
+- PWA service worker auto-registers; next step could wire a navigation guard to push users to `/offline` when `!navigator.onLine`.
