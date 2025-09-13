@@ -9,7 +9,10 @@ import LoginPage from '../login/page'
 import RegisterPage from '../register/page'
 
 // Minimal mocks for hooks/components used within pages to isolate rendering
-jest.mock('next/navigation', () => ({ useRouter: () => ({ replace: jest.fn(), push: jest.fn() }) }))
+jest.mock('next/navigation', () => ({
+    useRouter: () => ({ replace: jest.fn(), push: jest.fn() }),
+    usePathname: () => '/',
+}));
 jest.mock('../../shared/context/AuthProvider', () => ({ useAuth: () => ({ login: jest.fn(), register: jest.fn(), loading: false, user: null }) }))
 
 describe('Next.js pages smoke render', () => {
