@@ -36,3 +36,4 @@ Pending confirmation endpoints (volunteer, some notification specifics) will be 
 - Tailwind tokens extended (brand gradients, soft shadows, semantic status colors success/warning/danger).
 - Offline utilities: notification action queue + new offline fallback route `/offline` (edge runtime) with retry & back actions.
 - PWA service worker auto-registers; next step could wire a navigation guard to push users to `/offline` when `!navigator.onLine`.
+- Online status detection hook (`useOnlineStatus`) and `OfflineBanner` integrated into root layout for real-time connectivity UX.
