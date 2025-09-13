@@ -1,0 +1,31 @@
+{
+    "_comment": "Placeholder Lighthouse report generated in headless environment without Chrome. Replace by running: npx lighthouse http://localhost:3000 --output=json --output-path=dev/reports/lighthouse.json",
+    "url": "http://localhost:3000/",
+    "generatedAt": "${DATE}",
+    "categories": {
+        "performance": {
+            "score": null,
+            "note": "Pending real audit"
+        },
+        "accessibility": {
+            "score": null
+        },
+        "best-practices": {
+            "score": null
+        },
+        "seo": {
+            "score": null
+        },
+        "pwa": {
+            "score": null
+        }
+    },
+    "environment": {
+        "nodeVersion": "process.version",
+        "userAgent": "Unavailable in placeholder"
+    },
+    "runtimeError": {
+        "message": "Lighthouse not executed in this automated run context",
+        "code": "NO_CHROME_ENV"
+    }
+}

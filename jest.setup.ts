@@ -1,32 +1,42 @@
 jest.mock('next/font/google');
 import '@testing-library/jest-dom'
 
+declare global {
+    interface Window {
+        ResizeObserver: typeof MockResizeObserver;
+        IntersectionObserver: typeof MockIntersectionObserver;
+    }
+}
+
+// Generic minimal constructor form used for polyfill assignment without using 'any'
+// Accept up to two parameters to cover native observer constructor shapes
+type AnyObserverCtor =
+    | (new (callback: (...args: unknown[]) => void) => unknown)
+    | (new (callback: (...args: unknown[]) => void, options: unknown) => unknown);
+
 // Polyfill ResizeObserver for recharts responsive container
 class MockResizeObserver {
-    callback: ResizeObserverCallback;
-    constructor(cb: ResizeObserverCallback) { this.callback = cb }
-    observe() { /* no-op */ }
-    unobserve() { /* no-op */ }
-    disconnect() { /* no-op */ }
+    constructor(callback: ResizeObserverCallback) { void callback }
+    observe(target: Element, options?: ResizeObserverOptions): void { void target; void options }
+    unobserve(target: Element): void { void target }
+    disconnect(): void { /* no-op */ }
+    takeRecords(): ResizeObserverEntry[] { return [] }
 }
-// Assign polyfill only if not present
-// @ts-ignore
-if (!global.ResizeObserver) {
-    (global as unknown as { ResizeObserver: typeof MockResizeObserver }).ResizeObserver = MockResizeObserver;
+if (!('ResizeObserver' in globalThis)) {
+    (globalThis as unknown as Record<string, unknown>).ResizeObserver = MockResizeObserver as unknown as AnyObserverCtor;
 }
 
 // Minimal IntersectionObserver polyfill for framer-motion in tests
 class MockIntersectionObserver {
-    callback: IntersectionObserverCallback;
-    constructor(cb: IntersectionObserverCallback) { this.callback = cb }
-    observe() { /* no-op */ }
-    unobserve() { /* no-op */ }
-    disconnect() { /* no-op */ }
+    constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) { void callback; void options }
+    observe(target: Element): void { void target }
+    unobserve(target: Element): void { void target }
+    disconnect(): void { /* no-op */ }
     takeRecords(): IntersectionObserverEntry[] { return [] }
     root: Element | null = null;
     rootMargin: string = '0px';
     thresholds: ReadonlyArray<number> = [0];
 }
-if (!global.IntersectionObserver) {
-    (global as unknown as { IntersectionObserver: typeof MockIntersectionObserver }).IntersectionObserver = MockIntersectionObserver;
+if (!('IntersectionObserver' in globalThis)) {
+    (globalThis as unknown as Record<string, unknown>).IntersectionObserver = MockIntersectionObserver as unknown as AnyObserverCtor;
 }
