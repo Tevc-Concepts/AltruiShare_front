@@ -10,7 +10,7 @@ describe('useOnlineStatus hook', () => {
     }
     test('initially reflects navigator.onLine', () => {
         const { getByTestId } = render(<Probe />)
-        expect(['true','false']).toContain(getByTestId('state').textContent)
+        expect(['true', 'false']).toContain(getByTestId('state').textContent)
     })
 })
 
