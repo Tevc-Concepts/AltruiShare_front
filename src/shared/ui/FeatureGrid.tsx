@@ -6,9 +6,10 @@ export interface FeatureItem { title: string; description: string; icon?: React.
 export const FeatureGrid: React.FC<{ items: FeatureItem[] }> = ({ items }) => (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((f, i) => (
-            <motion.div key={f.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }} className="rounded-2xl p-6 bg-white/70 dark:bg-neutral-900/60 backdrop-blur border border-white/30 dark:border-white/10 shadow-soft hover:shadow-elevated transition focus-within:ring-2 focus-within:ring-brand-indigo/60" tabIndex={0}>
+            <motion.div key={f.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }} className="group relative rounded-2xl p-6 bg-white/70 dark:bg-neutral-900/60 backdrop-blur border border-white/30 dark:border-white/10 shadow-soft hover:shadow-glow-indigo transition focus-within:ring-2 focus-within:ring-brand-cobalt/60" tabIndex={0}>
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-brand-cobalt/15 via-brand-emerald/10 to-brand-violet/15" />
                 <div className="flex items-center gap-3 mb-3">
-                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-brand-indigo to-brand-pink text-white flex items-center justify-center font-semibold text-sm shadow-glow-pink">
+                    <div className="relative h-10 w-10 rounded-xl bg-gradient-to-br from-brand-cobalt to-brand-violet text-white flex items-center justify-center font-semibold text-sm shadow-glow-indigo">
                         {f.icon || f.title.charAt(0)}
                     </div>
                     <h3 className="font-semibold text-brand-indigo text-lg">

@@ -8,6 +8,8 @@ describe('Landing UI components', () => {
         const fn = jest.fn();
         render(<Hero onGuestExplore={fn} />);
         expect(screen.getByRole('heading', { name: /AltruiShare/i })).toBeInTheDocument();
+        screen.getByRole('link', { name: /Get Started Free/i });
+        screen.getByRole('link', { name: /Login/i });
         const guestBtn = screen.getByRole('button', { name: /Explore as Guest/i });
         fireEvent.click(guestBtn);
         expect(fn).toHaveBeenCalledTimes(1);
