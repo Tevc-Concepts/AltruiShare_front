@@ -20,5 +20,5 @@ export const authApi = {
     register: async (data: { email: string; password: string; full_name?: string }): Promise<AuthResponse> =>
         (await api.post(`${prefix}register`, data)) as unknown as AuthResponse,
     logout: async (): Promise<void> => { await api.post(`${prefix}logout`, {}) },
-    getLoggedUser: async (): Promise<User> => (await api.get(`${prefix}get_logged_user`)) as unknown as User
+    getLoggedUser: async (): Promise<User | null> => (await api.get(`${prefix}get_logged_user`)) as unknown as User | null
 }

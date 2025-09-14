@@ -14,7 +14,7 @@ interface AppHeaderProps {
 export const AppHeader: React.FC<AppHeaderProps> = ({ enableThemeToggle = true }) => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [dark, setDark] = useState(false);
-    const { roles } = useAuth();
+    const { roles, user } = useAuth();
     const pathname = usePathname();
 
     // Cast roles to enum list (already handled in layout elsewhere; safe duplication here for isolation)
@@ -44,13 +44,16 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ enableThemeToggle = true }
         <header className="w-full border-b border-white/20 dark:border-neutral-800 backdrop-blur bg-white/60 dark:bg-neutral-900/60 sticky top-0 z-30">
             <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2 font-semibold text-brand-navy dark:text-brand-emerald">
-                    <Image src="/AltruiShare.png" alt="AltruiShare logo" width={320} height={30} priority className="rounded-md shadow-soft" />
+                    <Image src="/AltruiShare.png" alt="AltruiShare logo" width={140} height={35} priority className="rounded-md shadow-soft" />
                     {/* <span className="hidden sm:inline">AltruiShare</span> */}
                 </Link>
                 <nav className="hidden md:flex items-center gap-5 text-sm" aria-label="Primary">
                     {permittedItems.filter(i => ['/', '/needs', '/donate', '/impact'].includes(i.path)).map(i => (
                         <Link key={i.path} href={i.path} className={`relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition after:bg-brand-cobalt ${pathname === i.path ? 'text-brand-cobalt font-medium after:scale-x-100' : ''}`}>{i.label}</Link>
                     ))}
+                    {user && (
+                        <Link href="/profile" className={`relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition after:bg-brand-cobalt ${pathname === '/profile' ? 'text-brand-cobalt font-medium after:scale-x-100' : ''}`}>Profile</Link>
+                    )}
                 </nav>
                 <div className="flex items-center gap-2">
                     {enableThemeToggle && (
@@ -72,7 +75,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ enableThemeToggle = true }
                     </div>
                     <nav className="flex-1 overflow-y-auto px-2 py-4" aria-label="Mobile navigation">
                         <ul className="space-y-1">
-                            {permittedItems.map(item => {
+                            {permittedItems.concat(user ? [{ label: 'Profile', path: '/profile' }] : []).map(item => {
                                 const active = pathname === item.path;
                                 return (
                                     <li key={item.path}>

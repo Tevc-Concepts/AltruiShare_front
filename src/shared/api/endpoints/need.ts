@@ -9,6 +9,13 @@ export interface Need {
     status: string
     category?: string
     created_at?: string
+    organisation?: string
+    organisation_name?: string
+    amount?: number
+    percentage?: number
+    urgency?: string
+    start_date?: string
+    end_date?: string
 }
 
 export const needApi = {
@@ -20,5 +27,6 @@ export const needApi = {
             if (v !== undefined && v !== null && v !== '') params.set(k, String(v))
         })
         return api.get(`${prefix}get_needs_by_filters?${params.toString()}`) as unknown as Need[]
-    }
+    },
+    getById: async (need_id: string): Promise<Need> => api.get(`${prefix}get_need?need_id=${encodeURIComponent(need_id)}`) as unknown as Need
 }

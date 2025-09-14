@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import { SideNav } from '../navigation/SideNav';
+import { ErrorBoundary } from '../../ui/errors/ErrorBoundary';
 import { useAuth } from '../../context/AuthProvider';
 import { UserRole } from '../../../entities/role';
 
@@ -15,7 +16,9 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
         <div className="w-full h-full flex bg-gradient-to-br from-indigo-50 to-white dark:from-neutral-900 dark:to-neutral-950">
             <SideNav roles={typedRoles} />
             <main className="flex-1 min-h-screen focus:outline-none">
-                {children}
+                <ErrorBoundary>
+                    {children}
+                </ErrorBoundary>
             </main>
         </div>
     );

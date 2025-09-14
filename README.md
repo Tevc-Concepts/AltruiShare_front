@@ -39,6 +39,69 @@ Skipping verification for failed statuses prevents unnecessary network calls and
 - Add retry button for failed payments.
 - Track number of poll attempts and auto-timeout after threshold with user feedback.
 
+### In‑Kind (Items) Donations
+Located in `src/features/donations/components/ItemDonationForm.tsx` and integrated via `DonationTabsClient` in the Need detail page. Users can:
+- Add one or more item rows (description + optional quantity)
+- Remove rows dynamically
+- Submit payload as `donation_type: 'Items'` via `donationApi.create`
+- Validation ensures every item has a description (alerts user otherwise)
+
+Testing (`ItemDonationForm.test.tsx`) covers:
+- Validation message for empty description
+- Correct API payload structure (need_id, donation_type, items array)
+- Dynamic row add/remove behavior
+
+Future ideas:
+- Add per-item condition/category fields
+- Bulk paste parsing (multi-line -> multiple items)
+- Client-side optimistic append to a donations list
+
+## Volunteer Feature
+Files: `src/shared/api/endpoints/volunteer.ts`, `src/features/volunteer/components/*`, `src/app/volunteer`.
+
+Capabilities:
+- List opportunities (`volunteerApi.list`) with remote badge, skills, capacity snippet
+- View detailed opportunity (`volunteerApi.get`)
+- Sign up (`volunteerApi.signup`) with optimistic UI state (button label transitions Sign Up → Registering… → Registered)
+
+Resilience:
+- Loading & error states per component
+- Effect cleanup guards against state updates after unmount
+
+Testing (`Volunteer.test.tsx`) validates:
+- List fetch & selection callback
+- Detail load + signup flow updates state
+- Unauthenticated user sees login prompt instead of signup button
+
+Future enhancements:
+- Filter/search by skill or remote
+- Disable signup when capacity full
+- Add cancellations / withdrawals
+- Track volunteer hours (`/volunteer/hours` placeholder path)
+
+## Profile & Avatar
+Profile components: `ProfileCard`, `ProfileForm`, `AvatarUpload` under `src/features/profile/components`.
+
+Avatar Upload:
+- Uses generic `useFileUpload` hook (`auto` + single concurrency) to upload one file
+- On success, calls `userApi.updateProfile({ avatar_url })` then triggers `AuthProvider.refresh()` to sync context
+- Shows progress bar (0–100%) with accessible live region semantics (implicit via text updates)
+
+Profile Link:
+- Added conditional `Profile` nav link in `AppHeader` (desktop + mobile) only when `user` is present
+	- Tested in `AppHeader.profileLink.test.tsx`
+
+Testing (`AvatarUpload.test.tsx`):
+- Mocks `fileApi.upload` & `userApi.updateProfile`
+- Asserts profile update with returned URL
+- Verifies progress bar reaches 100%
+
+Future profile additions:
+- Editable bio, timezone, location
+- Impact badges & leaderboard summary
+- Accessibility: add alt text editor for avatar
+
+
 <h1 align="center">AltruiShare Frontend</h1>
 
 Production-ready Next.js (App Router + TypeScript) frontend for the AltruiShare platform.
@@ -110,3 +173,12 @@ MIT (TBD)
 
 ---
 Further documentation will be added as features land.
+
+---
+### Recently Added (Changelog Snippet)
+| Date | Feature | Summary |
+| ---- | ------- | ------- |
+| 2025-09 | In‑Kind Donations | Multi-item form + tests, validation & tabbed UI integration. |
+| 2025-09 | Volunteer | Opportunity list/detail/signup with tests. |
+| 2025-09 | Profile Enhancements | Avatar upload + Profile nav link & tests. |
+

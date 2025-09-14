@@ -1,10 +1,12 @@
 "use client"
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { authApi, type User } from '../api/endpoints'
+import { userApi, type Profile } from '../api/endpoints/user'
 import { apiRequest } from '../api/client'
 
 interface AuthContextValue {
     user: User | null
+    profile: Profile | null
     loading: boolean
     login: (email: string, password: string) => Promise<void>
     register: (email: string, password: string, fullName?: string) => Promise<void>
@@ -22,8 +24,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [loading, setLoading] = useState(true)
     const [roles, setRoles] = useState<string[]>([])
     const [guest, setGuest] = useState(false)
+    const [profile, setProfile] = useState<Profile | null>(null)
 
     const fetchRoles = useCallback(async () => {
+        // When running in stub mode we skip backend and provide a default role.
         if (process.env.NEXT_PUBLIC_API_MODE === 'stub') {
             setRoles(['donor'])
             return
@@ -42,10 +46,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, [])
 
     const refresh = useCallback(async () => {
+        // Stub mode: short-circuit all network calls to avoid 404 noise during early UI work.
         if (process.env.NEXT_PUBLIC_API_MODE === 'stub') {
-            setUser({ id: 'guest', name: 'Stub User' } as unknown as typeof user)
+            setUser({ id: 'guest', name: 'Stub User' } as unknown as User)
             setLoading(false)
             fetchRoles()
+            setProfile({ id: 'guest', email: 'guest@example.com', full_name: 'Guest User', roles: ['donor'] })
             return
         }
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
@@ -56,8 +62,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             const u = await authApi.getLoggedUser()
             setUser(u || null)
+            if (u) {
+                try {
+                    const p = await userApi.getProfile()
+                    setProfile(p)
+                } catch {
+                    setProfile(null)
+                }
+            } else {
+                setProfile(null)
+            }
         } catch {
             setUser(null)
+            setProfile(null)
         } finally {
             setLoading(false)
         }
@@ -86,6 +103,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             const { user: loggedUser } = await authApi.login({ email, password })
             setUser(loggedUser)
+            try { setProfile(await userApi.getProfile()) } catch { /* ignore profile fetch error */ }
         } finally {
             setLoading(false)
         }
@@ -96,6 +114,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             const { user: registered } = await authApi.register({ email, password, full_name: fullName })
             setUser(registered)
+            try { setProfile(await userApi.getProfile()) } catch { /* ignore profile fetch error */ }
         } finally {
             setLoading(false)
         }
@@ -106,12 +125,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             await authApi.logout()
             setUser(null)
+            setProfile(null)
         } finally {
             setLoading(false)
         }
     }, [])
 
-    const value: AuthContextValue = { user, loading, login, logout, register, refresh, roles, guest, setGuest }
+    const value: AuthContextValue = { user, profile, loading, login, logout, register, refresh, roles, guest, setGuest }
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 

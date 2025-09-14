@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import type { Need } from '../../../shared/api/endpoints/need'
 import { Card, CardContent, CardHeader, CardTitle } from '../../../shared/ui/card'
 
@@ -9,10 +10,12 @@ export function NeedCard({ need, index }: { need: Need; index: number }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.04 }}
         >
-            <Card className="hover:shadow-soft-lg transition-shadow">
+            <Card className="hover:shadow-soft-lg transition-shadow focus-within:ring-2 focus-within:ring-cobalt">
                 <CardHeader className="pb-2">
                     <CardTitle className="flex items-center justify-between">
-                        <span>{need.title}</span>
+                        <Link href={`/needs/${encodeURIComponent(need.id)}`} className="outline-none focus:ring-2 focus:ring-cobalt rounded">
+                            {need.title}
+                        </Link>
                         <span className="text-xs px-2 py-0.5 rounded-full bg-brand-indigo/10 text-brand-indigo capitalize">{need.status}</span>
                     </CardTitle>
                 </CardHeader>

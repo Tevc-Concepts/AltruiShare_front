@@ -3,6 +3,7 @@ import '@testing-library/jest-dom'
 import React from 'react'
 import { AuthProvider, useAuth } from '../context/AuthProvider'
 import Protected from './Protected'
+import { authApi } from '../api/endpoints/auth'
 
 // Helper to set guest mode quickly
 const GuestSetter = () => {
@@ -13,6 +14,7 @@ const GuestSetter = () => {
 
 describe('Protected component', () => {
     test('renders fallback when not authenticated', async () => {
+        jest.spyOn(authApi, 'getLoggedUser').mockImplementationOnce(async () => null as unknown as never)
         render(
             <AuthProvider>
                 <Protected fallback={<p>Login needed</p>}>
@@ -25,6 +27,7 @@ describe('Protected component', () => {
     })
 
     test('guest flag can be set without crashing', async () => {
+        jest.spyOn(authApi, 'getLoggedUser').mockImplementationOnce(async () => null as unknown as never)
         render(
             <AuthProvider>
                 <GuestSetter />

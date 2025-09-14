@@ -9,7 +9,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onGuestExplore }) => {
     return (
-        <section aria-labelledby="hero-heading" className="relative overflow-hidden rounded-3xl p-8 md:p-16 text-white shadow-elevated bg-gradient-to-br from-brand-navy via-brand-cobalt to-brand-violet">
+        <section aria-labelledby="hero-heading" className="relative overflow-hidden rounded-3xl p-8 md:p-16 text-white shadow-elevated bg-brand-hero-gradient">
             <div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.25),transparent_60%),radial-gradient(circle_at_70%_60%,rgba(255,255,255,0.18),transparent_65%)]" />
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="relative max-w-3xl">
                 <h1 id="hero-heading" className="text-3xl md:text-5xl font-bold leading-tight drop-shadow-sm">
