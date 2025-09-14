@@ -4,6 +4,8 @@ const config: Config = {
     content: [
         './src/**/*.{js,ts,jsx,tsx,mdx}',
     ],
+    // Tailwind v4 removes legacy safelist array; if purge drops needed classes
+    // create explicit layer utilities in globals.css (TODO if pruning observed).
     theme: {
         extend: {
             colors: {
@@ -23,7 +25,7 @@ const config: Config = {
                 neutral: {
                     light: '#F5F8F6',
                     medium: '#E8ECEB',
-                    },
+                },
                 status: {
                     success: '#10b981',
                     warning: '#f59e0b',
@@ -56,6 +58,8 @@ const config: Config = {
                 'glow-cobalt': '0 0 0 1px rgba(39,116,255,0.4), 0 4px 18px -2px rgba(39,116,255,0.55)',
                 'glow-amber': '0 0 0 1px rgba(255,181,71,0.4), 0 4px 18px -2px rgba(255,181,71,0.55)',
                 'glow-emerald': '0 0 0 1px rgba(58,210,159,0.4), 0 4px 18px -2px rgba(58,210,159,0.55)',
+                'glow-indigo': '0 0 0 1px rgba(12,35,64,0.35), 0 4px 18px -2px rgba(12,35,64,0.5)',
+                'glow-pink': '0 0 0 1px rgba(255,111,89,0.35), 0 4px 18px -2px rgba(255,111,89,0.55)'
             },
             borderRadius: {
                 'xl2': '1.25rem',

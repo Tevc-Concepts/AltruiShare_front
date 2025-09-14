@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "AltruiShare",
   description: "AltruiShare – Unified impact & surplus mobilization platform",
   icons: {
-    icon: "/Altruishare.ico"
+    icon: "/AltruiShare.ico"
   }
 };
 
@@ -32,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased min-h-screen flex flex-col bg-gradient-to-br from-brand-navy/10 via-brand-violet/10 to-brand-coral/10`}>
+        <link rel="icon" href="/AltruiShare.ico" />
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-brand-indigo text-white px-3 py-2 rounded-md text-sm z-50">Skip to content</a>
         <AuthProvider>
           <OfflineBanner />

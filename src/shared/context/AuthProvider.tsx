@@ -24,15 +24,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [guest, setGuest] = useState(false)
 
     const fetchRoles = useCallback(async () => {
+        if (typeof navigator !== 'undefined' && !navigator.onLine) {
+            setRoles([])
+            return
+        }
         try {
             const data = await apiRequest<{ roles?: string[] }>({ method: 'GET', url: '.as_api.pwa_api.get_user_roles' })
             if (Array.isArray(data?.roles)) setRoles(data.roles)
         } catch {
+            // Suppress 404 noise while backend endpoint not available
             setRoles([])
         }
     }, [])
 
     const refresh = useCallback(async () => {
+        if (typeof navigator !== 'undefined' && !navigator.onLine) {
+            setUser(null)
+            setLoading(false)
+            return
+        }
         try {
             const u = await authApi.getLoggedUser()
             setUser(u || null)
