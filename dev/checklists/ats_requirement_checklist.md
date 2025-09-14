@@ -124,7 +124,7 @@ Status legend: [ ] not started · [~] in progress · [x] done · [>] deferred/la
 - [x] Menu config file (role→sections→items)
 - [x] Active route highlighting & keyboard nav (highlighting implemented; advanced keyboard focus mgmt TBD)
 - [x] Persisted collapse state
-- [ ] Mobile slide-over variant
+- [x] Mobile slide-over variant (AppHeader + drawer)
 - [ ] Top bar (search, notifications icon, user menu)
 
 ## 19. Offline & PWA
@@ -147,6 +147,7 @@ Status legend: [ ] not started · [~] in progress · [x] done · [>] deferred/la
 - [ ] Focus visible enhancements for custom components
 - [ ] Color contrast token validation
 - [ ] ARIA labels on charts & interactive widgets
+- [~] Dark mode contrast review (initial toggle & tokens)
 
 ## 22. Security & Compliance
 - [ ] Security headers (CSP, frame-ancestors, referrer-policy)
