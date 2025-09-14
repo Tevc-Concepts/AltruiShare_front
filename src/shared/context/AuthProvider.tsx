@@ -24,6 +24,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [guest, setGuest] = useState(false)
 
     const fetchRoles = useCallback(async () => {
+        if (process.env.NEXT_PUBLIC_API_MODE === 'stub') {
+            setRoles(['donor'])
+            return
+        }
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
             setRoles([])
             return
@@ -38,6 +42,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, [])
 
     const refresh = useCallback(async () => {
+        if (process.env.NEXT_PUBLIC_API_MODE === 'stub') {
+            setUser({ id: 'guest', name: 'Stub User' } as unknown as typeof user)
+            setLoading(false)
+            fetchRoles()
+            return
+        }
         if (typeof navigator !== 'undefined' && !navigator.onLine) {
             setUser(null)
             setLoading(false)
