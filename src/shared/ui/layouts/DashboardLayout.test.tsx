@@ -24,7 +24,7 @@ describe('DashboardLayout', () => {
         render(<DashboardLayout><div>ChildContent</div></DashboardLayout>);
         screen.getByTestId('mock-sidenav');
         // UNKNOWN_ROLE should be filtered out by DashboardLayout type narrowing
-        expect(receivedRoles).toEqual(['donor','volunteer']);
+        expect(receivedRoles).toEqual(['donor', 'volunteer']);
         expect(screen.getByText('ChildContent')).toBeInTheDocument();
     });
 });

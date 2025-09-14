@@ -44,8 +44,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ enableThemeToggle = true }
         <header className="w-full border-b border-white/20 dark:border-neutral-800 backdrop-blur bg-white/60 dark:bg-neutral-900/60 sticky top-0 z-30">
             <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2 font-semibold text-brand-navy dark:text-brand-emerald">
-                    <Image src="/AltruiShare.png" alt="AltruiShare logo" width={32} height={32} priority className="rounded-md shadow-soft w-8 h-8" />
-                    <span className="hidden sm:inline">AltruiShare</span>
+                    <Image src="/AltruiShare.png" alt="AltruiShare logo" width={320} height={30} priority className="rounded-md shadow-soft" />
+                    {/* <span className="hidden sm:inline">AltruiShare</span> */}
                 </Link>
                 <nav className="hidden md:flex items-center gap-5 text-sm" aria-label="Primary">
                     {permittedItems.filter(i => ['/', '/needs', '/donate', '/impact'].includes(i.path)).map(i => (
